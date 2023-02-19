@@ -1,23 +1,48 @@
 import { useRef, useEffect, useState } from "react";
-import { select, line, curveCardinal } from "d3";
+import {
+  select,
+  line,
+  curveCardinal,
+  axisBottom,
+  axisRight,
+  scaleLinear,
+} from "d3";
 
-const defaultData = [25, 30, 45, 60, 20, 75, 95];
+const defaultData = [25, 30, 45, 60, 20, 65, 75];
 
 function LineChart() {
   const [data, setData] = useState(defaultData);
   const svgRef = useRef();
   useEffect(() => {
     const svg = select(svgRef.current);
+
+    const xScale = scaleLinear()
+      .domain([0, data.length - 1]) // range of x values
+      .range([0, 300]);
+
+    const yScale = scaleLinear()
+      .domain([0, 150]) // range of y values
+      .range([150, 0]);
+
+    const xAxis = axisBottom(xScale)
+      .ticks(data.length)
+      .tickFormat((index) => index + 1);
+    svg.select("#x-axis").style("transform", "translateY(150px)").call(xAxis);
+
+    const yAxis = axisRight(yScale);
+    svg.select("#y-axis").style("transform", "translateX(300px)").call(yAxis);
+
     const myLine = line()
-      .x((value, index) => index * 50)
-      .y((value) => 150 - value)
+      .x((_, index) => xScale(index))
+      .y(yScale)
       .curve(curveCardinal);
 
     svg
-      .selectAll("path")
+      .selectAll(".line")
       .data([data])
       .join("path")
-      .attr("d", (value) => myLine(value))
+      .attr("class", "line")
+      .attr("d", myLine)
       .attr("fill", "none")
       .attr("stroke", "blue");
 
@@ -39,6 +64,8 @@ function LineChart() {
     <>
       <svg ref={svgRef}>
         {/* <path d="M0,150 100,100 150,120" stroke="blue" fill="none" /> */}
+        <g id="x-axis" />
+        <g id="y-axis" />
       </svg>
       <br />
       <button onClick={() => setData((prev) => prev.map((x) => x + 5))}>
