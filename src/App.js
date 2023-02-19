@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useRef, useEffect, useState } from "react";
+import { select } from "d3";
+
+const defaultData = [25, 30, 45, 60, 20];
 
 function App() {
+  const [data, setData] = useState(defaultData);
+  const svgRef = useRef();
+  useEffect(() => {
+    const svg = select(svgRef.current);
+    svg
+      .selectAll("circle")
+      .data(data)
+      .join("circle")
+      // .join(
+      //   (enter) => enter.append("circle").attr("class", "new")
+      //   // (update) => update.attr("class", "updated")
+      //   // (exit) => exit.remove()
+      // )
+      .attr("r", (value) => value)
+      .attr("cx", (value) => value * 2)
+      .attr("cy", (value) => value * 2)
+      .attr("stroke", "red");
+  }, [data]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <svg ref={svgRef}></svg>
+      <br />
+      <button onClick={() => setData((prev) => prev.map((x) => x + 5))}>
+        Update Data
+      </button>
+      <button onClick={() => setData((prev) => prev.filter((x) => x < 35))}>
+        Filter Data
+      </button>
+    </>
   );
 }
 
