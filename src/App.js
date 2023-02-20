@@ -1,6 +1,7 @@
 import "./App.css";
 import Circles from "./Circles";
 import LineChart from "./LineChart";
+import BarChart from "./BarChart";
 
 function App() {
   return (
@@ -10,6 +11,9 @@ function App() {
       </div>
       <div>
         <LineChart />
+      </div>
+      <div>
+        <BarChart />
       </div>
     </div>
   );
