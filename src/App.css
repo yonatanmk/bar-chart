@@ -3,3 +3,79 @@ svg {
   overflow: visible;
   margin-bottom: 4rem;
 }
+
+
+.BarChart2 {
+  width: 300px;
+  height: 250px;
+  /* margin: auto; */
+  margin: 1rem 4rem 1rem;
+  background-color: #2F4A6D;
+}
+
+.BarChart2 svg {
+  width: 100%;
+  height: 100%;
+}
+
+.BarChart2 .bar {
+  fill: #0072BD;
+  color: white;
+}
+
+.BarChart2 text {
+  font-size: 12px;
+  /* fill: #fff; */
+}
+
+.BarChart2 text.value {
+  font-size: 12px;
+  font-weight: bold;
+  fill: #fff;
+}
+
+.BarChart2 path {
+  stroke: gray;
+}
+
+.BarChart2 line {
+  stroke: gray;
+}
+
+.BarChart2 line#limit {
+  stroke: #FED966;
+  stroke-width: 3;
+  stroke-dasharray: 3 6;
+}
+
+.BarChart2 .grid path {
+  stroke-width: 0;
+}
+
+.BarChart2 .grid .tick line {
+  stroke: #9FAAAE;
+  stroke-opacity: 0.3;
+}
+
+.BarChart2 text.divergence {
+  font-size: 14px;
+  fill: #2F4A6D;
+}
+
+.BarChart2 text.value {
+  font-size: 14px;
+}
+
+.BarChart2 text.title {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.BarChart2 text.label {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.BarChart2 text.source {
+  font-size: 10px;
+}
